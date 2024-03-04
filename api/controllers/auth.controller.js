@@ -1,7 +1,7 @@
 const { User } = require("../models/user.model.js");
 const bcryptjs = require('bcryptjs');
-import { errorHandler } from '../utils/error.js';
-import jwt from 'jsonwebtoken';
+const errorHandler = require('../utils/error.js');
+const jwt = require('jsonwebtoken');
 
 exports.signup = async function (req, res, next) {
     const { username, email, password } = req.body;
@@ -15,7 +15,7 @@ exports.signup = async function (req, res, next) {
     }
 };
 
-export const signin = async (req, res, next) => {
+exports.signin = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const validUser = await User.findOne({ email });
