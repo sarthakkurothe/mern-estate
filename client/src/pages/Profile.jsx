@@ -30,6 +30,11 @@ export default function Profile() {
   const [userListings, setUserListings] = useState([]);
   const dispatch = useDispatch();
 
+  // firebase storage
+  // allow read;
+  // allow write: if
+  // request.resource.size < 2 * 1024 * 1024 &&
+  // request.resource.contentType.matches('image/.*')
 
   useEffect(() => {
     if (file) {
@@ -187,7 +192,7 @@ export default function Profile() {
         </p>
         <input
           type='text'
-          placeholder='Username'
+          placeholder='username'
           defaultValue={currentUser.username}
           id='username'
           className='border p-3 rounded-lg'
@@ -203,7 +208,7 @@ export default function Profile() {
         />
         <input
           type='password'
-          placeholder='Password'
+          placeholder='password'
           onChange={handleChange}
           id='password'
           className='border p-3 rounded-lg'

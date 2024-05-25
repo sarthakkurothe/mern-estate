@@ -1,5 +1,6 @@
 const express = require('express');
-const { google, signup, signin } = require('../controllers/auth.controller');
+const { google, signOut, signin, signup } = require('../controllers/auth.controller.js');
+
 const router = express.Router();
 
 router.post("/signup", signup);

@@ -1,21 +1,21 @@
-const { User } = require("../models/user.model.js");
+const User = require('../models/user.model.js');
 const bcryptjs = require('bcryptjs');
-const errorHandler = require('../utils/error.js');
+const { errorHandler } = require('../utils/error.js');
 const jwt = require('jsonwebtoken');
 
-exports.signup = async function (req, res, next) {
-    const { username, email, password } = req.body;
-    const hashedPassword = bcryptjs.hashSync(password, 10); 
-    try {
-        const newUser = new User({ username, email, password: hashedPassword });
-        await newUser.save();
-        res.status(201).json('User created successfully!');
-    } catch (error) {
-        next(error);
-    }
+const signup = async (req, res, next) => {
+  const { username, email, password } = req.body;
+  const hashedPassword = bcryptjs.hashSync(password, 10);
+  const newUser = new User({ username, email, password: hashedPassword });
+  try {
+    await newUser.save();
+    res.status(201).json('User created successfully!');
+  } catch (error) {
+    next(error);
+  }
 };
 
-exports.signin = async (req, res, next) => {
+const signin = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const validUser = await User.findOne({ email });
@@ -33,7 +33,7 @@ exports.signin = async (req, res, next) => {
   }
 };
 
-exports.google = async (req, res, next) => {
+const google = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
@@ -69,7 +69,7 @@ exports.google = async (req, res, next) => {
   }
 };
 
-exports.signOut = async (req, res, next) => {
+const signOut = async (req, res, next) => {
   try {
     res.clearCookie('access_token');
     res.status(200).json('User has been logged out!');
@@ -77,3 +77,5 @@ exports.signOut = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports = { signup, signin, google, signOut };
