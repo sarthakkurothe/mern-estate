@@ -67,7 +67,7 @@ export default function CreateListing() {
           setUploading(false);
         })
         .catch((err) => {
-          setImageUploadError('Image upload failed (2 mb max per image)');
+          setImageUploadError('Image upload failed (2 MB max per image)');
           setUploading(false);
         });
     } else {
@@ -298,7 +298,7 @@ export default function CreateListing() {
               <div className='flex flex-col items-center'>
                 <p>Regular price</p>
                 {formData.type === 'rent' && (
-                  <span className='text-xs'>($ / month)</span>
+                  <span className='text-xs'>(₹ / month)</span>
                 )}
               </div>
             </div>
@@ -317,7 +317,7 @@ export default function CreateListing() {
                 <div className='flex flex-col items-center'>
                   <p>Discounted price</p>
                   {formData.type === 'rent' && (
-                    <span className='text-xs'>($ / month)</span>
+                    <span className='text-xs'>(₹ / month)</span>
                   )}
                 </div>
               </div>
@@ -328,7 +328,7 @@ export default function CreateListing() {
           <p className='font-semibold'>
             Images:
             <span className='font-normal text-gray-600 ml-2'>
-              The first image will be the cover (max 6)
+              The first image will be the cover (Maximum: 6)
             </span>
           </p>
           <div className='flex gap-4'>

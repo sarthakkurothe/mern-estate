@@ -30,12 +30,6 @@ export default function Profile() {
   const [userListings, setUserListings] = useState([]);
   const dispatch = useDispatch();
 
-  // firebase storage
-  // allow read;
-  // allow write: if
-  // request.resource.size < 2 * 1024 * 1024 &&
-  // request.resource.contentType.matches('image/.*')
-
   useEffect(() => {
     if (file) {
       handleFileUpload(file);
@@ -162,7 +156,7 @@ export default function Profile() {
   };
   return (
     <div className='p-3 max-w-lg mx-auto'>
-      <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
+      <h1 className='text-3xl font-semibold text-center my-7'>My Profile</h1>
       <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
         <input
           onChange={(e) => setFile(e.target.files[0])}
@@ -180,7 +174,7 @@ export default function Profile() {
         <p className='text-sm self-center'>
           {fileUploadError ? (
             <span className='text-red-700'>
-              Error Image upload (image must be less than 2 mb)
+              Error in Image Uploading (Image must be less than 2 MB)
             </span>
           ) : filePerc > 0 && filePerc < 100 ? (
             <span className='text-slate-700'>{`Uploading ${filePerc}%`}</span>
@@ -192,7 +186,7 @@ export default function Profile() {
         </p>
         <input
           type='text'
-          placeholder='username'
+          placeholder='Username'
           defaultValue={currentUser.username}
           id='username'
           className='border p-3 rounded-lg'
@@ -200,7 +194,7 @@ export default function Profile() {
         />
         <input
           type='email'
-          placeholder='email'
+          placeholder='Email'
           id='email'
           defaultValue={currentUser.email}
           className='border p-3 rounded-lg'
@@ -208,7 +202,7 @@ export default function Profile() {
         />
         <input
           type='password'
-          placeholder='password'
+          placeholder='Password'
           onChange={handleChange}
           id='password'
           className='border p-3 rounded-lg'
@@ -231,7 +225,7 @@ export default function Profile() {
           onClick={handleDeleteUser}
           className='text-red-700 cursor-pointer'
         >
-          Delete account
+          Delete my account
         </span>
         <span onClick={handleSignOut} className='text-red-700 cursor-pointer'>
           Sign out
@@ -243,7 +237,7 @@ export default function Profile() {
         {updateSuccess ? 'User is updated successfully!' : ''}
       </p>
       <button onClick={handleShowListings} className='text-green-700 w-full'>
-        Show Listings
+        Show my Listings
       </button>
       <p className='text-red-700 mt-5'>
         {showListingsError ? 'Error showing listings' : ''}
