@@ -1,6 +1,6 @@
-# MERN Estate
+# Urban Estate
 
-MERN Estate is a full-stack real estate application built using the MERN stack (MongoDB, Express.js, React, Node.js). This application allows users to browse, create, update, and delete real estate listings. It also includes authentication using JWT and Google OAuth.
+Urban Estate is a full-stack real estate application built using the MERN stack (MongoDB, Express.js, React, Node.js). This application allows users to browse, create, update, and delete real estate listings. It also includes authentication using JWT and Google OAuth.
 
 ## Table of Contents
 
@@ -115,10 +115,6 @@ The following environment variables need to be set in your `.env` file:
 ## Contributing
 
 Contributions are welcome! Please fork the repository and submit a pull request.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Contact
 
