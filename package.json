@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "try": "module",
   "scripts": {
     "dev": "nodemon api/index.js",
     "start": "node api/index.js",
