@@ -12,7 +12,6 @@ Urban Estate is a full-stack real estate application built using the MERN stack 
 - [API Endpoints](#api-endpoints)
 - [Environment Variables](#environment-variables)
 - [Contributing](#contributing)
-- [License](#license)
 - [Contact](#contact)
 
 ## Demo
