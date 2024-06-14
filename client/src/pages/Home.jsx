@@ -5,6 +5,7 @@ import { Navigation } from 'swiper/modules';
 import SwiperCore from 'swiper';
 import 'swiper/css/bundle';
 import ListingItem from '../components/ListingItem';
+import myimage from 'src/assets/urban.jpg';
 
 export default function Home() {
   const [offerListings, setOfferListings] = useState([]);
@@ -76,7 +77,7 @@ export default function Home() {
             <SwiperSlide>
               <div
                 style={{
-                  background: `url(https://media.istockphoto.com/id/1314814500/photo/houses-in-england-with-typical-red-bricks-at-sunset-main-street-in-a-new-estate-with-typical.jpg?s=612x612&w=0&k=20&c=cJzNzZ48kowbtek68YxdGnC9hmZwCP_cMhS_V8vhw7s=) center no-repeat`,
+                  background: `url(${myimage}) center no-repeat`,
                   backgroundSize: 'cover',
                 }}
                 className='h-[500px]'
