@@ -5,7 +5,7 @@ import { Navigation } from 'swiper/modules';
 import SwiperCore from 'swiper';
 import 'swiper/css/bundle';
 import ListingItem from '../components/ListingItem';
-import myimage from 'src/assets/urban.jpg';
+import myimage from '../assets/urban.jpg';
 
 export default function Home() {
   const [offerListings, setOfferListings] = useState([]);
