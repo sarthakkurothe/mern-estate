@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const userRouter = require('./routes/user.route.js');
 const authRouter = require('./routes/auth.route.js');
 const listingRouter = require('./routes/listing.route.js');
+const mfaRouter = require('./routes/mfa.route.js');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 
@@ -11,12 +12,8 @@ dotenv.config();
 
 mongoose
   .connect(process.env.MONGO)
-  .then(() => {
-    console.log('Connected to MongoDB!');
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+  .then(() => console.log('Connected to MongoDB!'))
+  .catch((err) => console.log(err));
 
 const app = express();
 
@@ -28,6 +25,7 @@ app.use(express.static(clientPath));
 
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/auth/mfa', mfaRouter);
 app.use('/api/listing', listingRouter);
 
 app.get('*', (req, res) => {
@@ -42,10 +40,13 @@ app.listen(port, () => {
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
-  const message = err.message || 'Internal Server Error';
+
   res.status(statusCode).json({
     success: false,
     statusCode,
-    message,
+    error: {
+      code: err.code || 'INTERNAL_ERROR',
+      message: err.message || 'Internal Server Error',
+    },
   });
 });

@@ -2,20 +2,21 @@ const bcryptjs = require('bcryptjs');
 const User = require('../models/user.model.js');
 const { errorHandler } = require('../utils/error.js');
 const Listing = require('../models/listing.model.js');
+const { sendSuccess, sendMessage } = require('../utils/response.js');
 
 const test = (req, res) => {
-  res.json({
-    message: 'Api route is working!',
-  });
+  sendSuccess(res, 200, { message: 'Api route is working!' });
 };
 
 const updateUser = async (req, res, next) => {
   if (req.user.id !== req.params.id)
-    return next(errorHandler(401, 'You can only update your own account!'));
+    return next(
+      errorHandler(401, 'You can only update your own account!', 'FORBIDDEN')
+    );
+
   try {
-    if (req.body.password) {
+    if (req.body.password)
       req.body.password = bcryptjs.hashSync(req.body.password, 10);
-    }
 
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
@@ -31,8 +32,7 @@ const updateUser = async (req, res, next) => {
     );
 
     const { password, ...rest } = updatedUser._doc;
-
-    res.status(200).json(rest);
+    sendSuccess(res, 200, rest);
   } catch (error) {
     next(error);
   }
@@ -40,11 +40,14 @@ const updateUser = async (req, res, next) => {
 
 const deleteUser = async (req, res, next) => {
   if (req.user.id !== req.params.id)
-    return next(errorHandler(401, 'You can only delete your own account!'));
+    return next(
+      errorHandler(401, 'You can only delete your own account!', 'FORBIDDEN')
+    );
+
   try {
     await User.findByIdAndDelete(req.params.id);
     res.clearCookie('access_token');
-    res.status(200).json('User has been deleted!');
+    sendMessage(res, 200, 'User has been deleted!');
   } catch (error) {
     next(error);
   }
@@ -54,24 +57,34 @@ const getUserListings = async (req, res, next) => {
   if (req.user.id === req.params.id) {
     try {
       const listings = await Listing.find({ userRef: req.params.id });
-      res.status(200).json(listings);
+      sendSuccess(res, 200, listings);
     } catch (error) {
       next(error);
     }
   } else {
-    return next(errorHandler(401, 'You can only view your own listings!'));
+    return next(
+      errorHandler(401, 'You can only view your own listings!', 'FORBIDDEN')
+    );
   }
 };
 
 const getUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
-    if (!user) return next(errorHandler(404, 'User not found!'));
+    if (!user)
+      return next(errorHandler(404, 'User not found!', 'USER_NOT_FOUND'));
+
     const { password: pass, ...rest } = user._doc;
-    res.status(200).json(rest);
+    sendSuccess(res, 200, rest);
   } catch (error) {
     next(error);
   }
 };
 
-module.exports = { test, updateUser, deleteUser, getUserListings, getUser };
+module.exports = {
+  test,
+  updateUser,
+  deleteUser,
+  getUserListings,
+  getUser,
+};
