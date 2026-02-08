@@ -1,7 +1,11 @@
 import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
 import { app } from '../firebase';
 import { useDispatch } from 'react-redux';
-import { signInSuccess, signInFailure, signInStart } from '../redux/user/userSlice';
+import {
+  signInSuccess,
+  signInFailure,
+  signInStart,
+} from '../redux/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -15,6 +19,7 @@ export default function OAuth() {
 
       const provider = new GoogleAuthProvider();
       const auth = getAuth(app);
+
       const result = await signInWithPopup(auth, provider);
 
       const res = await fetch('/api/auth/google', {
@@ -27,22 +32,15 @@ export default function OAuth() {
         }),
       });
 
-      const response = await res.json();
+      const data = await res.json();
 
-      if (!response.success) {
-        dispatch(signInFailure(response.error?.message));
-        toast.error(response.error?.message || 'Google sign-in failed');
-        return;
-      }
-
-      // 🔐 MFA required (rare but supported)
-      if (response.data.mfaRequired) {
+      if (data.mfaRequired) {
         toast.info('Please complete MFA verification using email login');
         navigate('/sign-in');
         return;
       }
 
-      dispatch(signInSuccess(response.data));
+      dispatch(signInSuccess(data));
       toast.success('Signed in with Google');
       navigate('/');
     } catch (error) {
