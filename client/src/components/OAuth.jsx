@@ -40,7 +40,7 @@ export default function OAuth() {
         return;
       }
 
-      dispatch(signInSuccess(data));
+      dispatch(signInSuccess(data.data));
       toast.success('Signed in with Google');
       navigate('/');
     } catch (error) {

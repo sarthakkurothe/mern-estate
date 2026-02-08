@@ -59,7 +59,7 @@ export default function Search() {
       } else {
         setShowMore(false);
       }
-      setListings(data);
+      setListings(data.data);
       setLoading(false);
     };
 
